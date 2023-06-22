@@ -68,6 +68,42 @@ def exibir_opcoes():
     tela.blit(texto_carregar, (10, 30))
     tela.blit(texto_deletar, (10, 50))
 
+def carregar_marcacoes():
+    try:
+        with open("marcacoes.txt", "r") as arquivo:
+            pontos_estrelas.clear()
+            for linha in arquivo:
+                nome, ponto_x, ponto_y = linha.strip().split(",")
+                ponto = (int(ponto_x), int(ponto_y))
+                pontos_estrelas.append((ponto, nome))
+        messagebox.showinfo("Carregar Marcações", "As marcações foram carregadas com sucesso!")
+        superficie.blit(fundo, (0, 0))
+        for ponto, nome in pontos_estrelas:
+            desenhar_ponto(ponto, nome)
+        desenhar_linhas()
+    except Exception as e:
+        messagebox.showerror("Carregar Marcações", f"Ocorreu um erro ao carregar as marcações:\n{str(e)}")
+
+def salvar_marcacoes():
+    try:
+        with open("marcacoes.txt", "w") as arquivo:
+            for ponto, nome in pontos_estrelas:
+                ponto_x, ponto_y = ponto
+                arquivo.write(f"{nome},{ponto_x},{ponto_y}\n")
+        messagebox.showinfo("Salvar Marcações", "As marcações foram salvas com sucesso!")
+    except Exception as e:
+        messagebox.showerror("Salvar Marcações", f"Ocorreu um erro ao salvar as marcações:\n{str(e)}")
+
+def deletar_marcacoes():
+    if pontos_estrelas:
+        pontos_estrelas.clear()
+        if os.path.exists("marcacoes.txt"):
+            os.remove("marcacoes.txt")
+        superficie.blit(fundo, (0, 0))
+        messagebox.showinfo("Deletar Marcações", "As marcações foram deletadas!")
+    else:
+        messagebox.showinfo("Deletar Marcações", "Não há marcações para deletar!")
+
 jogo_ativo = True
 while jogo_ativo:
     for event in pygame.event.get():
@@ -76,6 +112,16 @@ while jogo_ativo:
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             mouse_pos = pygame.mouse.get_pos()
             obter_nome_estrela(mouse_pos)
+        elif event.type == pygame.KEYDOWN:
+            if event.key == K_F10:
+              
+                salvar_marcacoes()
+            elif event.key == K_F11:
+          
+                carregar_marcacoes()
+            elif event.key == K_F12:
+             
+                deletar_marcacoes()
 
     tela.fill((0, 0, 0))
     
