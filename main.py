@@ -21,6 +21,7 @@ running  = True
 pygame.mixer.music.load("assets/backSoundMusic.wav")
 pygame.mixer.music.play(-1)
 
+
 superficie = pygame.Surface(tamanho)
 superficie.blit(fundo, (0, 0))
 
@@ -33,11 +34,13 @@ def obter_nome_estrela(posicao):
     root.withdraw()
     nome_estrela = simpledialog.askstring("Nome da Estrela", "Digite o nome da estrela:")
     root.destroy()
-    if nome_estrela:
-        pontos_estrelas.append((posicao, nome_estrela))
-        desenhar_ponto(posicao, nome_estrela)
-        desenhar_linhas()
-        exibir_distancias()
+    if not nome_estrela:
+        nome_estrela = "Desconhecido"
+    pontos_estrelas.append((posicao, nome_estrela))
+    desenhar_ponto(posicao, nome_estrela)
+    desenhar_linhas()
+    exibir_distancias()
+
 
 def desenhar_ponto(posicao, nome_estrela):
     ponto_x, ponto_y = posicao
@@ -121,6 +124,7 @@ jogo_ativo = True
 while jogo_ativo:
     for event in pygame.event.get():
         if event.type == QUIT:
+            salvar_marcacoes()
             jogo_ativo = False
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             mouse_pos = pygame.mouse.get_pos()
