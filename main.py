@@ -1,9 +1,9 @@
 import pygame
 import tkinter as tk
-from tkinter import simpledialog
-from pygame.locals import QUIT
+from tkinter import simpledialog, messagebox
+from pygame.locals import QUIT, K_F10, K_F11, K_F12
 import math
-
+import os
 
 pygame.init()
 tamanho = (1000,500)
@@ -60,6 +60,14 @@ def desenhar_linhas():
         texto_rect.center = (centro_x, centro_y - 20)  
         superficie.blit(texto_distancia, texto_rect)
 
+def exibir_opcoes():
+    texto_salvar = fonte_nome.render("F10 - Salvar", True, (255, 255, 255))
+    texto_carregar = fonte_nome.render("F11 - Carregar", True, (255, 255, 255))
+    texto_deletar = fonte_nome.render("F12 - Deletar", True, (255, 255, 255))
+    tela.blit(texto_salvar, (10, 10))
+    tela.blit(texto_carregar, (10, 30))
+    tela.blit(texto_deletar, (10, 50))
+
 jogo_ativo = True
 while jogo_ativo:
     for event in pygame.event.get():
@@ -72,6 +80,8 @@ while jogo_ativo:
     tela.fill((0, 0, 0))
     
     tela.blit(superficie, (0, 0))
+
+    exibir_opcoes()
     
     pygame.display.flip()
 
