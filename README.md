@@ -6,4 +6,4 @@ O aplicativo também conta com mecanismo de SAVE, LOAD E DELETE que é a princip
 Matheus Durigon (RA 1134695)
 e Erick De Nardi (RA 1134724)
 
-link para Build : https://drive.google.com/drive/folders/1q3_GCsMdHb2Ji_ZM9Zvneaw0Qt4wDRRX?usp=sharing
+link para Build : https://drive.google.com/drive/folders/1Wev4-n2Ik1A-_qfmIBo0Q-FQKRns6jAl?usp=sharing
