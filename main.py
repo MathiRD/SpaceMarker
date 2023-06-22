@@ -37,7 +37,7 @@ def obter_nome_estrela(posicao):
         pontos_estrelas.append((posicao, nome_estrela))
         desenhar_ponto(posicao, nome_estrela)
         desenhar_linhas()
-
+        exibir_distancias()
 
 def desenhar_ponto(posicao, nome_estrela):
     ponto_x, ponto_y = posicao
@@ -81,6 +81,7 @@ def carregar_marcacoes():
         for ponto, nome in pontos_estrelas:
             desenhar_ponto(ponto, nome)
         desenhar_linhas()
+        exibir_distancias()
     except Exception as e:
         messagebox.showerror("Carregar Marcações", f"Ocorreu um erro ao carregar as marcações:\n{str(e)}")
 
@@ -103,6 +104,18 @@ def deletar_marcacoes():
         messagebox.showinfo("Deletar Marcações", "As marcações foram deletadas!")
     else:
         messagebox.showinfo("Deletar Marcações", "Não há marcações para deletar!")
+
+def exibir_distancias():
+    for i in range(len(pontos_estrelas) - 1):
+        ponto1, _ = pontos_estrelas[i]
+        ponto2, _ = pontos_estrelas[i + 1]
+        distancia = math.hypot(ponto2[0] - ponto1[0], ponto2[1] - ponto1[1])
+        centro_x = (ponto1[0] + ponto2[0]) // 2
+        centro_y = (ponto1[1] + ponto2[1]) // 2
+        texto_distancia = fonte_nome.render(f"{distancia:.2f}", True, (255, 255, 255))
+        texto_rect = texto_distancia.get_rect()
+        texto_rect.center = (centro_x, centro_y - 20)  
+        superficie.blit(texto_distancia, texto_rect)
 
 jogo_ativo = True
 while jogo_ativo:
